@@ -1,11 +1,12 @@
-var path = require("path");
-
+var readline = require('readline');
+var rl = readline.createInterface(process.stdin, process.stdout);
 var cart = [];
-var delayTime = 3000;
+var delayTime = 10000;
 var user = grab('--user');
 var id = grab('--id');
 var exit = false;
 var interval;
+var shop;
 
 function grab(flag) {
 	var index = process.argv.indexOf(flag);
@@ -40,24 +41,27 @@ if(id){
 
 refreshInterval();
 
-process.stdin.on('data', function(data) {
-    let input = data.toString().trim();
-    exit = input == "exit";
-	if (exit) {
-		process.exit();
-	} else {
-        process.stdout.clearLine();
-        process.stdout.cursorTo(0);
-        process.stdout.write(`What else? (exit to quit)\n`);
-        cart.push(input);
-        refreshInterval();
-	}
+rl.question("Which shop have you visited today?\n", function(answer) {
+
+    shop = answer;
+    refreshInterval();
+
+    rl.setPrompt(`What have you bought?\n`);
+    rl.prompt();
+    
+    rl.on('line', function(item) {
+        if (item.toLowerCase().trim() === 'exit') {
+            rl.close();
+        } else {
+            refreshInterval();
+            cart.push(item);
+            rl.setPrompt(`What else? (exit to quit)\n`);
+            rl.prompt();
+        }
+    });
 });
 
-process.on('exit', function() {
-	process.stdout.write("\n\n\n\n");
-    process.stdout.write(`You have bought ${cart.toString()} today.`);
-	process.stdout.write("\n\n\n\n");
+rl.on('close', function() {
+    process.stdout.write(`You have visite ${shop} to buy ${cart.toString()} today.\n`);
+	process.exit();
 });
-
-console.log(`What have you bought today?`);
