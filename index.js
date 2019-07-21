@@ -33,17 +33,20 @@ if(id){
 var exit = false;
 
 process.stdin.on('data', function(data) {
-
     let input = data.toString().trim();
     exit = input == "exit";
 	if (exit) {
-        console.log(cart.toString());
 		process.exit();
 	} else {
         process.stdout.write(`What else? (exit to quit)\n`);
 		cart.push(input);
 	}
+});
 
+process.on('exit', function() {
+	process.stdout.write("\n\n\n\n");
+    process.stdout.write(`You have bought ${cart.toString()} today.`);
+	process.stdout.write("\n\n\n\n");
 });
 
 console.log(`What have you bought today?`);
