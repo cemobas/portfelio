@@ -23,5 +23,15 @@ module.exports = {
         if(id){
             console.log(`User ID: ${id}`);
         }
+    },
+    printItems: function(shopping) {
+        process.stdout.write(`You have bought `);
+        for(var i=0; i<shopping.cart.length; ++i) {
+            process.stdout.write(`${shopping.cart[i].title}`);
+            if(i<shopping.cart.length-1) {
+                process.stdout.write(`, `);
+            }
+        }
+        process.stdout.write(` in ${shopping.store} today. Spent: ${shopping.total} złoty.\n\n`);
     }
 };
