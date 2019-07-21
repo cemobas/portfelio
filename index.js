@@ -1,12 +1,15 @@
 var readline = require('readline');
 var rl = readline.createInterface(process.stdin, process.stdout);
-var cart = [];
 var delayTime = 10000;
 var user = grab('--user');
 var id = grab('--id');
 var exit = false;
 var interval;
-var shop;
+var Shopping = function(store) {
+    this.store = store;
+    this.cart = [];
+}
+var shopping;
 
 function grab(flag) {
 	var index = process.argv.indexOf(flag);
@@ -43,7 +46,7 @@ refreshInterval();
 
 rl.question("Which shop have you visited today?\n", function(answer) {
 
-    shop = answer;
+    shopping = new Shopping(answer);
     refreshInterval();
 
     rl.setPrompt(`What have you bought?\n`);
@@ -54,7 +57,7 @@ rl.question("Which shop have you visited today?\n", function(answer) {
             rl.close();
         } else {
             refreshInterval();
-            cart.push(item);
+            shopping.cart.push(item);
             rl.setPrompt(`What else? (exit to quit)\n`);
             rl.prompt();
         }
@@ -62,6 +65,6 @@ rl.question("Which shop have you visited today?\n", function(answer) {
 });
 
 rl.on('close', function() {
-    process.stdout.write(`You have visite ${shop} to buy ${cart.toString()} today.\n`);
+    process.stdout.write(`You have visited ${shopping.store} to buy ${shopping.cart.toString()} today.\n`);
 	process.exit();
 });
