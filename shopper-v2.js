@@ -8,9 +8,7 @@ var furnitureBudget = 7000;
 
 util.inherits(Shopping, EventEmitter);
 
-var furniture = new Shopping("Vox Meble");
 var daily = new Shopping("Żabka");
-
 daily.on('add', function(item) {
 	daily.cart.push(item);
 	daily.total += item.price;
@@ -22,6 +20,7 @@ daily.emit('add', new Item("Kefir", 5));
 daily.emit('add', new Item("Kurczak", 13));
 tools.printItems(daily);
 
+var furniture = new Shopping("Vox Meble");
 furniture.on('add', function(item) {
 	furniture.cart.push(item);
 	furniture.total += item.price;

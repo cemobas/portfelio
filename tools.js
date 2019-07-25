@@ -4,7 +4,7 @@ module.exports = {
         return (index === -1) ? null : process.argv[index+1];
     },
     login: function (user, id) {
-        if (!user || !id) {
+        if (!user && !id) {
             console.log("You can't go on without name or id, sorry!");
             process.exit();
         } else {
