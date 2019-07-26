@@ -10,6 +10,22 @@ VOX Meble
 * Szafka
 `;
 
-fs.writeFile("./files/sample.md", md.trim(), function(err) {
-	console.log("File Created");
+if (fs.existsSync("./files/25072019")) {
+    console.log("Directory already there");
+} else {
+    fs.mkdir("./files/25072019", function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Directory Created");
+        }
+    });
+}
+
+fs.writeFile("./files/25072019/daily-shop.md", md.trim(), function(err) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("File Created");
+    }
 });
