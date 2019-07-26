@@ -8,7 +8,7 @@ fs.readdir('./files', function(err, files) {
 	}
 
     console.log("Reading Files...");
-	console.log(files+ "\n");
+	console.log(files+ "/n");
     
     files.forEach(function(fileName) {
         var file = path.join(__dirname, "files", fileName);
