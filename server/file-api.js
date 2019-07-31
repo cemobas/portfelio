@@ -19,8 +19,14 @@ http.createServer(function(req, res) {
 	 */
 	} else if (req.url === "/burger-of-the-day") {
 		fs.readFile("./public/cheeseburger.html", "UTF-8", function(err, html) {
-			res.writeHead(200, {"Content-Type": "text/html"});
-			res.end(html);
+			if(err) {
+				res.writeHead(404, {"Content-Type": "text/html"});
+				res.end(`Who stole my burger?!<br/>Error code: ` + res.statusCode);
+				console.log(err);
+			} else {
+				res.writeHead(200, {"Content-Type": "text/html"});
+				res.end(html);
+			}
 		});
 
 	} else if (req.url.match(/.css$/)) {
