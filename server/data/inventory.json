@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Tooth paste",
+    "brand": "Colgate",
+    "cost": "$2",
+    "avail": "In stock"
+  },
+  {
+    "name": "Tooth paste",
+    "brand": "Sensodyne",
+    "cost": "$3",
+    "avail": "In stock"
+  },
+  {
+    "name": "Tooth paste",
+    "brand": "Ipana",
+    "cost": "$1",
+    "avail": "On back order"
+  },
+  {
+    "name": "Tooth brush",
+    "brand": "Colgate",
+    "cost": "$4",
+    "avail": "On back order"
+  },
+  {
+    "name": "Tooth brush",
+    "brand": "Sensodyne",
+    "cost": "$5",
+    "avail": "In stock"
+  },
+  {
+    "name": "Tooth brush",
+    "brand": "Ipana",
+    "cost": "$2",
+    "avail": "In stock"
+  }
+]
