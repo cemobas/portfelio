@@ -1,7 +1,20 @@
 var express = require("express");
-
 var app = express();
 
+var shoppingList = [
+    {
+        item: "Egg",
+        amount: "1 box of 10"
+    },
+    {
+        item: "Rice",
+        amount: "1 pack of 200 gr"
+    },
+    {
+        item: "Banana",
+        amount: "4"
+    }
+];
 
 app.use(function(req, res, next) {
     console.log(`${req.method} request for '${req.url}'`);
@@ -19,6 +32,11 @@ app.use(function(req, res, next) {
  */
 app.use(express.static("./public"));
 
+/** route: localhost:3000/shopping-api
+ * express decorates req/res objects and extends their features. */
+app.get("/shopping-api", function(req, res) {
+	res.json(shoppingList);
+});
 
 app.listen(3000);
 
