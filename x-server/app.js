@@ -1,4 +1,6 @@
 var express = require("express");
+var cors = require("cors");
+var bodyParser = require("body-parser");
 var app = express();
 
 var shoppingList = [
@@ -16,6 +18,12 @@ var shoppingList = [
     }
 ];
 
+/** Parses posted json data sent to us as json. */
+app.use(bodyParser.json());
+/** Parses posted urlencoded data. Otherwise it looks like "[object HTMLInputElement]". 
+ * extended: true, if you have large amount of nested data to parse. */
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(function(req, res, next) {
     console.log(`${req.method} request for '${req.url}'`);
     /** A web-site fires GET several times to load web content (you'll see as in console logs).
@@ -32,10 +40,29 @@ app.use(function(req, res, next) {
  */
 app.use(express.static("./public"));
 
+/** Cross Origin Resource Sharing to all the api requests.
+ * It means that any domain can request to shopping-api.
+ */
+app.use(cors());
+
 /** route: localhost:3000/shopping-api
  * express decorates req/res objects and extends their features. */
 app.get("/shopping-api", function(req, res) {
 	res.json(shoppingList);
+});
+
+app.post("/shopping-api", function(req, res) {
+    /** Send in header
+     * Content-Type:application/json */
+    shoppingList.push(req.body);
+    res.json(shoppingList);
+});
+
+app.delete("/shopping-api/:item", function(req, res) {
+    shoppingList = shoppingList.filter(function(definition) {
+        return definition.item.toLowerCase() !== req.params.item.toLowerCase();
+    });
+    res.json(shoppingList);
 });
 
 app.listen(3000);
